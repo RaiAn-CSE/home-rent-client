@@ -1,0 +1,56 @@
+[
+    {
+        "id": "1",
+        "icon": "https://i.ibb.co/t8cgdCJ/hostel.png",
+        "title":"Hostel Rent",
+        "adds":"04"
+    },
+    {
+        "id": "2",
+        "icon": "https://i.ibb.co/t8cgdCJ/hostel.png",
+        "title":"House Rent",
+        "adds":"04"
+    }
+    ,
+    {
+        "id": "3",
+        "icon": "https://i.ibb.co/t8cgdCJ/hostel.png",
+        "title":"Only For Boys",
+        "adds":"04"
+    }
+    ,
+    {
+        "id": "4",
+        "icon": "https://i.ibb.co/t8cgdCJ/hostel.png",
+        "title":"Only For Girls",
+        "adds":"04"
+    }
+    ,
+    {
+        "id": "5",
+        "icon": "https://i.ibb.co/t8cgdCJ/hostel.png",
+        "title":"Only For ",
+        "adds":"04"
+    }
+    ,
+    {
+        "id": "6",
+        "icon": "https://i.ibb.co/t8cgdCJ/hostel.png",
+        "title":"Hostel Rent",
+        "adds":"04"
+    }
+    ,
+    {
+        "id": "7",
+        "icon": "https://i.ibb.co/t8cgdCJ/hostel.png",
+        "title":"Hostel Rent",
+        "adds":"04"
+    }
+    ,
+    {
+        "id": "8",
+        "icon": "https://i.ibb.co/t8cgdCJ/hostel.png",
+        "title":"Hostel Rent",
+        "adds":"04"
+    }
+]
