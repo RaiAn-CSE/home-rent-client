@@ -1,10 +1,30 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import "../Login/Login.css";
 import loginBanner from "../../images/login-banner.png";
-
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Signup = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { createUser, updateUser } = useContext(AuthContext);
+  const [signUpError, setSignUPError] = useState('');
+  const navigate = useNavigate();
+
+  const handleSignUp = (data) => {
+    console.log(data);
+    setSignUPError('');
+    createUser(data.email, data.password)
+      .then(result => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch(error => {
+        console.log(error)
+      });
+    navigate('/');
+  }
+
   return (
     <div>
       <div className="login-section  container mt-2">
@@ -23,7 +43,7 @@ const Signup = () => {
               <div className="text-center">
                 <h3 className="fw-bolder">Sign Up</h3>
               </div>
-              <form action="">
+              <form onSubmit={handleSubmit(handleSignUp)}>
                 <div className="m-3">
                   <label
                     for="exampleFormControlInput1"
@@ -32,6 +52,7 @@ const Signup = () => {
                     Name
                   </label>
                   <input
+                    {...register("name", { required: true })}
                     type="text"
                     className="form-control"
                     id="exampleFormControlInput1"
@@ -44,6 +65,7 @@ const Signup = () => {
                     Email address
                   </label>
                   <input
+                    {...register("email", { required: true })}
                     type="email"
                     className="form-control"
                     id="exampleFormControlInput2"
@@ -56,7 +78,8 @@ const Signup = () => {
                     Phone Number
                   </label>
                   <input
-                    type="text"
+                    {...register("number", { required: true })}
+                    type="number"
                     className="form-control"
                     id="exampleFormControlInput3"
                     placeholder="Phone"
@@ -68,6 +91,7 @@ const Signup = () => {
                     Password
                   </label>
                   <input
+                    {...register("password", { required: true })}
                     type="password"
                     className="form-control"
                     placeholder="Password"
@@ -86,8 +110,8 @@ const Signup = () => {
                   />
                   Show Password
                 </div>
+                <input className="signIn-btn mb-5 login-btn" value='Sign Up' type="submit" />
               </form>
-              <button className="signIn-btn mb-5 login-btn">Sign Up</button>
             </div>
           </div>
         </div>
