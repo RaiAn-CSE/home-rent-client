@@ -7,14 +7,16 @@ import Pagination from "../../component/Pagination/Pagination";
 
 const AllProperty = () => {
   const [posts, setPosts] = useState([]);
+  console.log(posts);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(9);
 
+
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
-      const res = await axios.get("all-property.json");
+      const res = await axios.get("http://localhost:5000/productCollection");
       setPosts(res.data);
       setLoading(false);
     };
@@ -26,6 +28,7 @@ const AllProperty = () => {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  console.log(currentPosts);
   //change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
@@ -46,11 +49,13 @@ const AllProperty = () => {
             </div>
             <div className="all-property-card">
               <Posts posts={currentPosts} loading={loading}></Posts>
+
               <Pagination
                 postsPerPage={postsPerPage}
                 totalPosts={posts.length}
                 paginate={paginate}
               ></Pagination>
+
             </div>
           </div>
         </div>

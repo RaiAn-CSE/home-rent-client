@@ -1,210 +1,321 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./AddProperty.css";
 import Form from "react-bootstrap/Form";
+import { AuthContext } from '../../contexts/AuthProvider';
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const AddProperty = () => {
+  const { user } = useContext(AuthContext)
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const imageHostKey = 'd7bc9eb1fc3dad76ed26f9bf8911706b';
+
+  const navigate = useNavigate();
+  // console.log(imageHostKey);
+
+  const handleAddProduct = data => {
+    console.log(data);
+    const image = data.image[0];
+    console.log(image);
+    const formData = new FormData();
+    formData.append('image', image);
+    const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`
+    // console.log(url);
+    fetch(url, {
+      method: 'POST',
+      body: formData
+    })
+      .then(res => res.json())
+      .then(imgData => {
+        // console.log(imgData);
+        if (imgData.success) {
+          console.log(imgData.data.url);
+          const product = {
+            name: data.name,
+            address: data.address,
+            amount: data.amount,
+            area: data.area,
+            bath: data.bath,
+            category: data.category,
+            city: data.city,
+            details: data.details,
+            elevator: data.elevator,
+            email: data.email,
+            garage: data.garage,
+            gas: data.gas,
+            kitchen: data.kitchen,
+            phone: data.phone,
+            propertySize: data.propertySize,
+            room: data.room,
+            title: data.title,
+            image: imgData.data.url,
+          }
+
+          // Save Products information to the database
+          fetch('http://localhost:5000/productCollection', {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json',
+              authorization: `bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(product)
+          })
+            .then(res => res.json())
+            .then(result => {
+              console.log(result);
+              // toast.success(`${data.name} is added successfully`);
+              navigate('/allProperty')
+            })
+        }
+      })
+  }
+
+
   return (
     <div>
       <h3 className="text-center">Add Your Property For Rent</h3>
-      <div className=" d-flex justify-content-center">
-        <div className="add-property-box">
-          <h4>Personal Information</h4>
-          <div className="row my-2">
-            <div className="col-md-4 col-lg-4 col-sm-12">
-              <Form>
-                <Form.Group>
-                  <Form.Label>Name*</Form.Label>
-                  <Form.Control type="text" />
-                </Form.Group>
-              </Form>
+      <form onSubmit={handleSubmit(handleAddProduct)}>
+        <div className=" d-flex justify-content-center">
+          <div className="add-property-box">
+            <h4>Personal Information</h4>
+            <div className="row my-2">
+              <div className="col-md-4 col-lg-4 col-sm-12">
+                <Form>
+                  <Form.Group>
+                    <Form.Label>Name*</Form.Label>
+                    <Form.Control {...register("name", {
+                      required: "Name is Required"
+                    })} type="text" />
+                  </Form.Group>
+                </Form>
+              </div>
+              <div className="col-md-4 col-lg-4 col-sm-12">
+                <Form>
+                  <Form.Group>
+                    <Form.Label>Phone No*</Form.Label>
+                    <Form.Control {...register("phone", {
+                      required: "Phone Number is Required"
+                    })} type="number" />
+                  </Form.Group>
+                </Form>
+              </div>
+              <div className="col-md-4 col-lg-4 col-sm-12">
+                <Form>
+                  <Form.Label>Email*</Form.Label>
+                  <Form.Control {...register("email", {
+                    required: "Email is Required"
+                  })} type="email" />
+                </Form>
+              </div>
             </div>
-            <div className="col-md-4 col-lg-4 col-sm-12">
-              <Form>
-                <Form.Group>
-                  <Form.Label>Phone No*</Form.Label>
-                  <Form.Control type="number" />
-                </Form.Group>
-              </Form>
-            </div>
-            <div className="col-md-4 col-lg-4 col-sm-12">
-              <Form>
-                <Form.Label>Email*</Form.Label>
-                <Form.Control type="email" />
-              </Form>
-            </div>
-          </div>
-          <h4> Rental information</h4>
-          <Form>
-            <Form.Group className="mb-2" controlId="">
-              <Form.Label>Property Title*</Form.Label>
-              <Form.Control type="text" placeholder="enter property title" />
-            </Form.Group>
-            <Form.Group className="mb-2" controlId="">
-              <Form.Label>Property Details</Form.Label>
-              <Form.Control
-                type="text"
-                as="textarea"
-                rows={3}
-                placeholder="write details of a property"
-              />
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <Form.Label>Rent</Form.Label>
-              <Form.Control type="number" placeholder="rent amount" />
-            </Form.Group>
-            <Form.Group className="mb-2" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Negotiable" />
-            </Form.Group>
-          </Form>
+            <h4> Rental information</h4>
+            <Form>
+              <Form.Group className="mb-2" controlId="">
+                <Form.Label>Property Title*</Form.Label>
+                <Form.Control {...register("title", {
+                  required: "Email is Required"
+                })} type="text" placeholder="enter property title" />
+              </Form.Group>
+              <Form.Group className="mb-2" controlId="">
+                <Form.Label>Property Details</Form.Label>
+                <Form.Control
+                  {...register("details", {
+                    required: "Email is Required"
+                  })}
+                  type="text"
+                  as="textarea"
+                  rows={3}
+                  placeholder="write details of a property"
+                />
+              </Form.Group>
+              <Form.Group className="mb-2">
+                <Form.Label>Rent</Form.Label>
+                <Form.Control {...register("amount", {
+                  required: "Email is Required"
+                })} type="number" placeholder="rent amount" />
+              </Form.Group>
+              <Form.Group className="mb-2" controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="Negotiable" />
+              </Form.Group>
+            </Form>
 
-          <div className="row mb-2">
-            <div className="col-md-4 col-lg-4 col-sm-12">
-              <Form>
-                <Form.Group>
-                  <Form.Label>Property Size*</Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder="size of a property in sqft."
-                  />
-                </Form.Group>
-              </Form>
+            <div className="row mb-2">
+              <div className="col-md-4 col-lg-4 col-sm-12">
+                <Form>
+                  <Form.Group>
+                    <Form.Label>Property Size*</Form.Label>
+                    <Form.Control
+                      {...register("propertySize", {
+                        required: "Email is Required"
+                      })}
+                      type="number"
+                      placeholder="size of a property in sqft."
+                    />
+                  </Form.Group>
+                </Form>
+              </div>
+              <div className="col-md-4 col-lg-4 col-sm-12">
+                <Form>
+                  <Form.Group>
+                    <Form.Label>City*</Form.Label>
+                    <Form.Select {...register("city", {
+                      required: "Email is Required"
+                    })} aria-label="Default select example">
+                      <option value="">Choose City</option>
+                      <option value="Dhaka">Dhaka</option>
+                      <option value="Chittagong">Chittagong</option>
+                      <option value="Rajshahi">Rajshahi</option>
+                      <option value="Rangpur">Rangpur</option>
+                      <option value="Barisal">Barisal</option>
+                      <option value="Khulna">Khulna</option>
+                      <option value="Sylhet">Sylhet</option>
+                      <option value="Mymensingh">Mymensingh</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Form>
+              </div>
+              <div className="col-md-4 col-lg-4 col-sm-12">
+                <Form>
+                  <Form.Group>
+                    <Form.Label>Area*</Form.Label>
+                    <Form.Select {...register("area", {
+                      required: "Email is Required"
+                    })} aria-label="Default select example">
+                      <option value="">Choose Area</option>
+                      <option value="Dhanmondi">Dhanmondi</option>
+                      <option value="Mohammadpur">Mohammadpur</option>
+                      <option value="Mirpur">Mirpur</option>
+                      <option value="Uttara">Uttara</option>
+                      <option value="Bashundhara">Bashundhara</option>
+                      <option value="Badda">Badda</option>
+                      <option value="Khilkhet">Khilkhet</option>
+                      <option value="Farmgate">Farmgate</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Form>
+              </div>
             </div>
-            <div className="col-md-4 col-lg-4 col-sm-12">
-              <Form>
-                <Form.Group>
-                  <Form.Label>City*</Form.Label>
-                  <Form.Select aria-label="Default select example">
-                    <option value="">Choose City</option>
-                    <option value="Dhaka">Dhaka</option>
-                    <option value="Chittagong">Chittagong</option>
-                    <option value="Rajshahi">Rajshahi</option>
-                    <option value="Rangpur">Rangpur</option>
-                    <option value="Barisal">Barisal</option>
-                    <option value="Khulna">Khulna</option>
-                    <option value="Sylhet">Sylhet</option>
-                    <option value="Mymensingh">Mymensingh</option>
-                  </Form.Select>
-                </Form.Group>
-              </Form>
+            <div className="row mb-2">
+              <div className="col-md-4 col-lg-4 col-sm-12">
+                <Form>
+                  <Form.Group>
+                    <Form.Label>Rent Category*</Form.Label>
+                    <Form.Select {...register("category", {
+                      required: "Email is Required"
+                    })} aria-label="Default select example">
+                      <option value="">Choose</option>
+                      <option value="Residential Apartment">
+                        Residential Apartment
+                      </option>
+                      <option value="Flat">Flat</option>
+                      <option value="Commercial Space">Commercial Space</option>
+                      <option value="Office Space">Office Space</option>
+                      <option value="Shop & Restaurant Space">
+                        Shop & Restaurant Space
+                      </option>
+                      <option value="Community Center">Community Center</option>
+                      <option value="Sublet">Sublet</option>
+                      <option value="Room for Bachelor">Room for Bachelor</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Form>
+              </div>
+              <div className="col-md-8 col-sm-8 col-sm-12">
+                <Form>
+                  <Form.Group controlId="">
+                    <Form.Label>Address*</Form.Label>
+                    <Form.Control
+                      {...register("address", {
+                        required: "Email is Required"
+                      })}
+                      type="text"
+                      as="textarea"
+                      rows={3}
+                      placeholder="write details of your property"
+                    />
+                  </Form.Group>
+                </Form>
+              </div>
             </div>
-            <div className="col-md-4 col-lg-4 col-sm-12">
-              <Form>
-                <Form.Group>
-                  <Form.Label>Area*</Form.Label>
-                  <Form.Select aria-label="Default select example">
-                    <option value="">Choose Area</option>
-                    <option value="Dhanmondi">Dhanmondi</option>
-                    <option value="Mohammadpur">Mohammadpur</option>
-                    <option value="Mirpur">Mirpur</option>
-                    <option value="Uttara">Uttara</option>
-                    <option value="Bashundhara">Bashundhara</option>
-                    <option value="Badda">Badda</option>
-                    <option value="Khilkhet">Khilkhet</option>
-                    <option value="Farmgate">Farmgate</option>
-                  </Form.Select>
-                </Form.Group>
-              </Form>
+            <div className="row mb-2">
+              <div className="col-md-4 col-lg-4 col-sm-12">
+                <Form>
+                  <Form.Group>
+                    <Form.Label>Room*</Form.Label>
+                    <Form.Control {...register("room", {
+                      required: "Email is Required"
+                    })} type="number" />
+                  </Form.Group>
+                </Form>
+              </div>
+              <div className="col-md-4 col-lg-4 col-sm-12">
+                <Form>
+                  <Form.Group>
+                    <Form.Label>Bath*</Form.Label>
+                    <Form.Control {...register("bath", {
+                      required: "Email is Required"
+                    })} type="number" />
+                  </Form.Group>
+                </Form>
+              </div>
+              <div className="col-md-4 col-lg-4 col-sm-12">
+                <Form>
+                  <Form.Label>Kitchen*</Form.Label>
+                  <Form.Control {...register("kitchen", {
+                    required: "Email is Required"
+                  })} type="number" />
+                </Form>
+              </div>
             </div>
-          </div>
-          <div className="row mb-2">
-            <div className="col-md-4 col-lg-4 col-sm-12">
-              <Form>
-                <Form.Group>
-                  <Form.Label>Rent Category*</Form.Label>
-                  <Form.Select aria-label="Default select example">
-                    <option value="">Choose</option>
-                    <option value="Residential Apartment">
-                      Residential Apartment
-                    </option>
-                    <option value="Flat">Flat</option>
-                    <option value="Commercial Space">Commercial Space</option>
-                    <option value="Office Space">Office Space</option>
-                    <option value="Shop & Restaurant Space">
-                      Shop & Restaurant Space
-                    </option>
-                    <option value="Community Center">Community Center</option>
-                    <option value="Sublet">Sublet</option>
-                    <option value="Room for Bachelor">Room for Bachelor</option>
-                  </Form.Select>
-                </Form.Group>
-              </Form>
-            </div>
-            <div className="col-md-8 col-sm-8 col-sm-12">
-              <Form>
-                <Form.Group controlId="">
-                  <Form.Label>Address*</Form.Label>
-                  <Form.Control
-                    type="text"
-                    as="textarea"
-                    rows={3}
-                    placeholder="write details of your property"
-                  />
-                </Form.Group>
-              </Form>
-            </div>
-          </div>
-          <div className="row mb-2">
-            <div className="col-md-4 col-lg-4 col-sm-12">
-              <Form>
-                <Form.Group>
-                  <Form.Label>Room*</Form.Label>
-                  <Form.Control type="number" />
-                </Form.Group>
-              </Form>
-            </div>
-            <div className="col-md-4 col-lg-4 col-sm-12">
-              <Form>
-                <Form.Group>
-                  <Form.Label>Bath*</Form.Label>
-                  <Form.Control type="number" />
-                </Form.Group>
-              </Form>
-            </div>
-            <div className="col-md-4 col-lg-4 col-sm-12">
-              <Form>
-                <Form.Label>Kitchen*</Form.Label>
-                <Form.Control type="number" />
-              </Form>
-            </div>
-          </div>
-          <div className="row mb-2">
-            <div className="col-md-4 col-lg-4 col-sm-12">
-              <Form>
-                <Form.Group>
-                  <Form.Label>Garage*</Form.Label>
-                  <Form.Control type="number" />
-                </Form.Group>
-              </Form>
-            </div>
-            <div className="col-md-4 col-lg-4 col-sm-12">
-              <Form>
-                <Form.Group>
-                  <Form.Label>Gas*</Form.Label>
-                  <Form.Select aria-label="Default select example">
+            <div className="row mb-2">
+              <div className="col-md-4 col-lg-4 col-sm-12">
+                <Form>
+                  <Form.Group>
+                    <Form.Label>Garage*</Form.Label>
+                    <Form.Control {...register("garage", {
+                      required: "Email is Required"
+                    })} type="number" />
+                  </Form.Group>
+                </Form>
+              </div>
+              <div className="col-md-4 col-lg-4 col-sm-12">
+                <Form>
+                  <Form.Group>
+                    <Form.Label>Gas*</Form.Label>
+                    <Form.Select {...register("gas", {
+                      required: "Email is Required"
+                    })} aria-label="Default select example">
+                      <option></option>
+                      <option value="Available">Available</option>
+                      <option value="Not Available">Not Available</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Form>
+              </div>
+              <div className="col-md-4 col-lg-4 col-sm-12">
+                <Form>
+                  <Form.Label>Elevator*</Form.Label>
+                  <Form.Select {...register("elevator", {
+                    required: "Email is Required"
+                  })} aria-label="Default select example">
                     <option></option>
                     <option value="Available">Available</option>
                     <option value="Not Available">Not Available</option>
                   </Form.Select>
-                </Form.Group>
-              </Form>
+                </Form>
+              </div>
             </div>
-            <div className="col-md-4 col-lg-4 col-sm-12">
-              <Form>
-                <Form.Label>Elevator*</Form.Label>
-                <Form.Select aria-label="Default select example">
-                  <option></option>
-                  <option value="Available">Available</option>
-                  <option value="Not Available">Not Available</option>
-                </Form.Select>
-              </Form>
-            </div>
+            <Form.Group controlId="formFileLg" className="mb-2">
+              <Form.Label>Upload Property Image</Form.Label>
+              <Form.Control {...register("image", {
+                required: "Email is Required"
+              })} type="file" size="lg" />
+            </Form.Group>
           </div>
-          <Form.Group controlId="formFileLg" className="mb-2">
-            <Form.Label>Upload Property Image</Form.Label>
-            <Form.Control type="file" size="lg" />
-          </Form.Group>
         </div>
-      </div>
+        <input className="login-btn mb-5" value='Submit' type="submit" />
+      </form>
     </div>
   );
 };

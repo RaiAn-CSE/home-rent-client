@@ -1,6 +1,5 @@
 [
     {
-        "id": "1",
         "image": "https://i.ibb.co/tDjvwBr/banner1.jpg",
         "name": "Lovely Room in Uttara",
         "rent": "13000",
@@ -13,7 +12,6 @@
         "availability": "Still"
     },
     {
-        "id": "2",
         "image": "https://i.ibb.co/tDjvwBr/banner1.jpg",
         "name": "Lovely Room in Uttara",
         "rent": "13000",
@@ -26,7 +24,6 @@
         "availability": "Still"
     },
     {
-        "id": "3",
         "image": "https://i.ibb.co/tDjvwBr/banner1.jpg",
         "name": "Lovely Room in Uttara",
         "rent": "20000",
@@ -39,7 +36,6 @@
         "availability": "Still"
     },
     {
-        "id": "4",
         "image": "https://i.ibb.co/tDjvwBr/banner1.jpg",
         "name": "Lovely Room in Uttara",
         "rent": "25000",
@@ -52,7 +48,6 @@
         "availability": "Not"
     },
     {
-        "id": "5",
         "image": "https://i.ibb.co/tDjvwBr/banner1.jpg",
         "name": "Lovely Room in Uttara",
         "rent": "30000",
@@ -65,7 +60,6 @@
         "availability": "Still"
     },
     {
-        "id": "6",
         "image": "https://i.ibb.co/tDjvwBr/banner1.jpg",
         "name": "Lovely Room in Uttara",
         "rent": "15000",
@@ -78,7 +72,6 @@
         "availability": "Not"
     },
     {
-        "id": "7",
         "image": "https://i.ibb.co/tDjvwBr/banner1.jpg",
         "name": "Lovely Room in Uttara",
         "rent": "20000",
@@ -91,7 +84,6 @@
         "availability": "Still"
     },
     {
-        "id": "8",
         "image": "https://i.ibb.co/tDjvwBr/banner1.jpg",
         "name": "Lovely Room in Uttara",
         "rent": "15000",
@@ -104,7 +96,6 @@
         "availability": "Still"
     },
     {
-        "id": "9",
         "image": "https://i.ibb.co/tDjvwBr/banner1.jpg",
         "name": "Lovely Room in Uttara",
         "rent": "13000",
@@ -117,7 +108,6 @@
         "availability": "Still"
     },
     {
-        "id": "10",
         "image": "https://i.ibb.co/tDjvwBr/banner1.jpg",
         "name": "Lovely Room in Uttara",
         "rent": "13000",
@@ -130,7 +120,6 @@
         "availability": "Still"
     },
     {
-        "id": "11",
         "image": "https://i.ibb.co/tDjvwBr/banner1.jpg",
         "name": "Lovely Room in Uttara",
         "rent": "13000",
@@ -143,9 +132,8 @@
         "availability": "Still"
     },
     {
-        "id": "12",
         "image": "https://i.ibb.co/tDjvwBr/banner1.jpg",
-        "name": "Lovely Room in Uttara",
+        "name": "Lovely Room in Uttara1111111",
         "rent": "13000",
         "room": "2",
         "bath": "1",
