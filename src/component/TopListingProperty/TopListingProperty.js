@@ -64,7 +64,7 @@ const TopListingProperty = () => {
             <div className="card">
               <img src={pro.image} className="card-img-top" alt="..." />
               <div className="card-body">
-                <div className="details">
+                <div className="">
                   <p className="location">{pro.name}</p>
                   <p className="rent">Rent: {pro.rent} Tk</p>
                   <p>

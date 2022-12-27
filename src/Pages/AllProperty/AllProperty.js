@@ -45,7 +45,7 @@ const AllProperty = () => {
           <div className="col-md-9 col-lg-9 col-sm-12">
             <div className="ms-4">
               <h3 className="fw-bolder">Apartments in Dhaka</h3>
-              <span>100 results. Jul 12-2022</span>
+              <span>{posts.length} results. Jul 12-2022</span>
             </div>
             <div className="all-property-card">
               <Posts posts={currentPosts} loading={loading}></Posts>
