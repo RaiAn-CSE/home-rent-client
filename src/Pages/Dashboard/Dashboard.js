@@ -1,12 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-// import MyProperty from "../../component/MyProperty/MyProperty";
-import { AuthContext } from '../../contexts/AuthProvider';
-import useAdmin from '../../hooks/useAdmin';
-import MyProperty from "../../component/MyProperty/MyProperty";
-import UserList from "../../component/OwnerList/OwnerList";
 import "../Dashboard/Dashboard.css";
 import NavSection from "../../Shared/Navbar/NavSection";
+import useAdmin from "../../hooks/useAdmin";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);

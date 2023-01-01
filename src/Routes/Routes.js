@@ -1,12 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
+// import DashboardLayout from "../Layout/DashboardLayout";
 import Main from "../Layout/Main";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import AddProperty from "../Pages/AddProperty/AddProperty";
+import AllOwners from "../Pages/AllOwners/AllOwners";
+// import AllOwners from "../Pages/AllOwners/AllOwners";
 import AllProperty from "../Pages/AllProperty/AllProperty";
+import AllRenters from "../Pages/AllRenters/AllRenters";
+// import AllRenters from "../Pages/AllRenters/AllRenters";
+import Dashboard from "../Pages/Dashboard/Dashboard";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import PropertyDetails from "../Pages/PropertyDetails/PropertyDetails";
 import Signup from "../Pages/Signup/Signup";
+// import AdminRoute from "./AdminRoute/AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -40,8 +47,23 @@ const router = createBrowserRouter([
       {
         path: "/details",
         element: <PropertyDetails></PropertyDetails>,
-      },
+      }
     ],
   },
+  {
+    path: '/dashboard',
+    element: <Dashboard />,
+    children: [
+      {
+        path: '/dashboard/allRenters',
+        element: <AllRenters></AllRenters>
+      },
+      {
+        path: '/dashboard/allOwners',
+        element: <AllOwners></AllOwners>
+      },
+
+    ]
+  }
 ]);
 export default router;

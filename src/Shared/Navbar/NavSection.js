@@ -58,6 +58,11 @@ const NavSection = () => {
               user?.uid ?
                 <>
                   <span className="navbar-text">
+                    <Link to="/dashboard" className="nav-link nav-style">
+                      Dashboard
+                    </Link>
+                  </span>
+                  <span className="navbar-text">
                     <Link>
                       <button onClick={handleLogOut} className="nav-button">Logout</button>
                     </Link>

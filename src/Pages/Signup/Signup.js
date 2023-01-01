@@ -4,25 +4,48 @@ import loginBanner from "../../images/login-banner.png";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
+import { Toast } from "react-bootstrap";
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const { createUser, updateUser } = useContext(AuthContext);
-  const [signUpError, setSignUPError] = useState('');
+  const { createUser, updateUser } = useContext(AuthContext)
   const navigate = useNavigate();
 
   const handleSignUp = (data) => {
     console.log(data);
-    setSignUPError('');
     createUser(data.email, data.password)
       .then(result => {
         const user = result.user;
         console.log(user);
+        const userInfo = {
+          displayName: data.name
+        }
+        updateUser(userInfo)
+          .then(() => {
+            saveUser(data.name, data.email);
+          })
+          .catch(err => console.log(err));
       })
+
       .catch(error => {
         console.log(error)
       });
     navigate('/');
+  }
+
+  const saveUser = (name, email) => {
+    const user = { name, email };
+    fetch('http://localhost:5000/users', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+      })
   }
 
   return (
