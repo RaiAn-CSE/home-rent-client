@@ -4,14 +4,37 @@ import Table from 'react-bootstrap/Table';
 const AllRenters = () => {
 
     const [allUsers, setAllUsers] = useState([]);
+    const [sellers, setSellers] = useState([])
 
     console.log(allUsers);
 
     useEffect(() => {
-        fetch('http://localhost:5000/users')
+        fetch('http://localhost:5000/dashboard/allbuyers?role=buyer')
             .then((res) => res.json())
             .then((data) => setAllUsers(data));
     }, []);
+
+
+    const handleDelete = id => {
+        console.log(id);
+        const agree = window.confirm(`Are you sure you want to delete :${id} `)
+        if (agree) {
+            console.log("Deleting user with id:", id)
+            fetch(`http://localhost:5000/users/${id}`, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.deletedCount > 0) {
+                        // toast.success('Make admin successful.')
+
+                        const remaining = sellers.filter(dlt => dlt._id !== id)
+                        setSellers(remaining)
+                    }
+                    console.log(data)
+                })
+        }
+    }
 
     return (
         <div>
@@ -21,7 +44,7 @@ const AllRenters = () => {
                         <th>#</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Username</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +54,9 @@ const AllRenters = () => {
                             <th>{i + 1}</th>
                             <td>{user.name}</td>
                             <td>{user.email}</td>
+                            <td>
+                                <button className="btn btn-outline btn-warning btn-xs mr-3 mb-5" onClick={() => handleDelete(user._id)}>Delete</button>
+                            </td>
                         </tr>)
                     }
 
