@@ -1,36 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 
 const AllRenters = () => {
+
+    const [allUsers, setAllUsers] = useState([]);
+
+    console.log(allUsers);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/users')
+            .then((res) => res.json())
+            .then((data) => setAllUsers(data));
+    }, []);
+
     return (
         <div>
             <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Name</th>
+                        <th>Email</th>
                         <th>Username</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td colSpan={2}>Larry the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                    {
+                        allUsers.map((user, i) => <tr
+                            key={user._id}>
+                            <th>{i + 1}</th>
+                            <td>{user.name}</td>
+                            <td>{user.email}</td>
+                        </tr>)
+                    }
+
                 </tbody>
             </Table>
         </div>
