@@ -1,3 +1,9 @@
 hi this is raian
+<<<<<<< HEAD
+this is yasin
+
+
+hiiiiiiiiiiii
+=======
 this is abdur rahman apu
-Change
+change in readme

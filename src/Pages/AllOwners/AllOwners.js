@@ -8,7 +8,7 @@ const AllOwners = () => {
     console.log(allUsers);
 
     useEffect(() => {
-        fetch('http://localhost:5000/users')
+        fetch('"https://y-five-snowy.vercel.app/dashboard/allsellers?role=seller"')
             .then((res) => res.json())
             .then((data) => setAllUsers(data));
     }, []);
