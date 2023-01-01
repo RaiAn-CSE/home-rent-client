@@ -4,7 +4,6 @@ import loginBanner from "../../images/login-banner.png";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
-import { Toast } from "react-bootstrap";
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
