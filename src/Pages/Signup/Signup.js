@@ -13,7 +13,7 @@ const Signup = () => {
 
   const handleSignUp = (data) => {
     console.log(data);
-    createUser(data.email, data.password)
+    createUser(data.email, data.password, data.userType)
       .then(result => {
         const user = result.user;
         console.log(user);
@@ -22,7 +22,7 @@ const Signup = () => {
         }
         updateUser(userInfo)
           .then(() => {
-            saveUser(data.name, data.email);
+            saveUser(data.name, data.email, data.userType);
           })
           .catch(err => console.log(err));
       })
@@ -33,8 +33,8 @@ const Signup = () => {
     navigate('/');
   }
 
-  const saveUser = (name, email) => {
-    const user = { name, email };
+  const saveUser = (name, email, userType) => {
+    const user = { name, email, role: userType };
     fetch('http://localhost:5000/users', {
       method: 'POST',
       headers: {
@@ -68,6 +68,15 @@ const Signup = () => {
               </div>
               <form onSubmit={handleSubmit(handleSignUp)}>
                 <div className="m-3">
+                  {/* User :  */}
+                  <div className="form-control w-full max-w-xs">
+                    <label className="label"> <span className="label-text">User Type</span></label>
+                    <select {...register("userType")}>
+                      <option value="buyer">buyer</option>
+                      <option value="seller">seller</option>
+                    </select>
+                    {errors.userType && <p className='text-red-500'>{errors.userType.message}</p>}
+                  </div>
                   <label
                     for="exampleFormControlInput1"
                     className="form-label float-start"
