@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { FaBed, FaBath, FaSquare } from "react-icons/fa";
+import { ImLocation2 } from "react-icons/im";
 import { Pagination, Navigation } from "swiper";
 
 import "swiper/css";
@@ -11,7 +13,7 @@ import "./TopListingProperty.css";
 const TopListingProperty = () => {
   const [property, setProperty] = useState([]);
   useEffect(() => {
-    fetch("top-listing-property.json")
+    fetch("http://localhost:5000/productCollection")
       .then((res) => res.json())
       .then((data) => setProperty(data));
   }, []);
@@ -62,20 +64,44 @@ const TopListingProperty = () => {
         {property.map((pro) => (
           <SwiperSlide>
             <div className="card">
-              <img src={pro.image} className="card-img-top" alt="..." />
-              <div className="card-body">
-                <div className="">
-                  <p className="location">{pro.name}</p>
-                  <p className="rent">Rent: {pro.rent} Tk</p>
-                  <p>
-                    <span>{pro.bed}</span>&nbsp; Room, <span>{pro.bath}</span>
-                    &nbsp; Bath, <span>{pro.kitchen}</span>&nbsp;Kitchen
-                  </p>
-                  <p className="availability">{pro.availability} Available</p>
+              <div className="card-image text-center">
+                <img src={pro.image} className="card-img-top" alt="..." />
+              </div>
+              <div className="card-info">
+                <p className="fw-bold">{pro.title}</p>
+
+                <span>
+                  <ImLocation2 className="property-des-style" />
+                  {pro.area}, {pro.city}
+                </span>
+                <p> Property Type: {pro.category}</p>
+                <div className="d-flex justify-content-start gap-4">
+                  <span>
+                    <FaBed className="property-des-style" /> {pro.room}
+                  </span>
+                  <span>
+                    <FaBath className="property-des-style" /> {pro.bath}
+                  </span>
+                  <span>
+                    <FaSquare className="property-des-style" />{" "}
+                    {pro.propertySize} sqft.
+                  </span>
                 </div>
-                <div className="d-flex justify-content-center">
-                  <Link to="/details">
-                    <button className="view-btn">View</button>
+                <div className="mt-2">
+                  <span>
+                    Available From:{" "}
+                    <b className="property-des-style">{pro.month}</b>
+                  </span>
+                </div>
+                <div className="mt-2">
+                  <span>
+                    Rent: <span className="property-des-style">{pro.rent}</span>{" "}
+                    TK
+                  </span>
+                </div>
+                <div className="text-center mt-2">
+                  <Link to="/details" className="details">
+                    View Details
                   </Link>
                 </div>
               </div>
