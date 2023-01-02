@@ -59,23 +59,19 @@ const PropertyBanner = () => {
                       </Form.Label>
                       <Form.Select aria-label="Default select example">
                         <option value="">Choose</option>
-                        <option value="Residential Apartment">
-                          Residential Apartment
-                        </option>
-                        <option value="Flat">Flat</option>
-                        <option value="Commercial Space">
-                          Commercial Space
-                        </option>
+                        <option value="Commercial Space">Commercial Space</option>
                         <option value="Office Space">Office Space</option>
-                        <option value="Shop & Restaurent Space">
-                          Shop & Restaurent Space
+                        <option value="Apartment Building">
+                          Apartment Building
                         </option>
-                        <option value="Community Center">
-                          Community Center
-                        </option>
-                        <option value="Sublet">Sublet</option>
-                        <option value="Room for Bachelor">
-                          Room for Bachelor
+                        <option value="Flat Rent">Flat Rent</option>
+                        <option value="Hostel Rent">Hostel Rent</option>
+                        <option value="Only For Boys">Only For Boys</option>
+                        <option value="Only For Girls">Only For Girls</option>
+                        <option value="For Family">For Family</option>
+                        <option value="Community Center">Community Center</option>
+                        <option value="Shop & Restaurant Space">
+                          Shop & Restaurant Space
                         </option>
                       </Form.Select>
                     </Form.Group>

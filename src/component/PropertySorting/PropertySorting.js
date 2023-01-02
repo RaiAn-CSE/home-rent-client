@@ -29,12 +29,12 @@ const PropertySorting = () => {
         <h5 className="mt-2">Types of Rent</h5>
         <Form.Group>
           <Form.Check label="Flat Rent" />
-          <Form.Check label="Apartment" />
+          <Form.Check label="Apartment Building" />
           <Form.Check label="Commercial Space" />
           <Form.Check label="Office Space" />
-          <Form.Check label="Restaurant" />
+          <Form.Check label="Shop & Restaurant" />
           <Form.Check label="Community Center" />
-          <Form.Check label="Room for Bachelor" />
+          <Form.Check label="Hostel Rent" />
         </Form.Group>
         <h5 className="mt-2">Select Month</h5>
         <Form.Group>

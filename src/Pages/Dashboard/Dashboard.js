@@ -4,10 +4,12 @@ import "../Dashboard/Dashboard.css";
 import NavSection from "../../Shared/Navbar/NavSection";
 import useAdmin from "../../hooks/useAdmin";
 import { AuthContext } from "../../contexts/AuthProvider";
+import useSeller from "../../hooks/useSeller";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin] = useAdmin(user?.email)
+  const [isSeller] = useSeller(user?.email)
   const [myProperty, setMyProperty] = useState([]);
   useEffect(() => {
     fetch("dashboard-data.json")
@@ -26,6 +28,12 @@ const Dashboard = () => {
             <>
               <li><Link to="/dashboard/allRenters">All Renters</Link></li>
               <li><Link to="/dashboard/allOwners">All Owners</Link></li>
+            </>
+          }
+          {
+            isSeller &&
+            <>
+              <li><Link to="/dashboard/myProperty">My Property</Link></li>
             </>
           }
         </div>

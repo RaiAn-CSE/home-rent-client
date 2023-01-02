@@ -11,6 +11,7 @@ import AllRenters from "../Pages/AllRenters/AllRenters";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
+import MyProperty from "../Pages/MyProperty/MyProperty";
 import PropertyDetails from "../Pages/PropertyDetails/PropertyDetails";
 import Signup from "../Pages/Signup/Signup";
 // import AdminRoute from "./AdminRoute/AdminRoute";
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/allOwners',
         element: <AllOwners></AllOwners>
+      },
+      {
+        path: '/dashboard/myProperty',
+        element: <MyProperty></MyProperty>
       },
 
     ]
