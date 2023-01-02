@@ -24,6 +24,8 @@ const AllProperty = () => {
     fetchPosts();
   }, []);
 
+
+
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -31,6 +33,55 @@ const AllProperty = () => {
   console.log(currentPosts);
   //change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+
+  //handle form
+  const handleForm = (event) => {
+    event.preventDefault();
+
+
+    // price 
+
+    const price = event.target.price.value
+
+
+    // city 
+    const city = event.target.city.value
+
+    // rent type 
+    const rentType = event.target.rentType;
+    const rentCheck = Object.values(rentType).filter(rent => rent.checked === true);
+    const rentCheckValue = rentCheck.map(check => {
+      return check.value
+    })
+
+
+    const month = event.target.month.value
+
+    // bed 
+
+    const bedAmount = event.target.bed;
+    const bedCheck = Object.values(bedAmount).filter(bed => bed.checked === true);
+    const bedCheckValue = bedCheck.map(check => {
+      return check.value
+    })
+
+
+
+    // wash
+
+    const washAmount = event.target.wash;
+    const washCheck = Object.values(washAmount).filter(wash => wash.checked === true);
+    const washCheckValue = washCheck.map(check => {
+      return check.value
+    })
+
+    fetch(`http://localhost:5000/productCollection?price=${price}&city=${city}&rentType=${rentCheckValue}&bedAmount=${bedCheckValue}&washAmount=${washCheckValue}&month=${month}`)
+      .then(res => res.json())
+      .then(data => setPosts(data))
+
+
+  }
   return (
     <div>
       <div className="banner-section">
@@ -40,7 +91,7 @@ const AllProperty = () => {
         <h3 className="mt-5 fw-bolder">Search results:-</h3>
         <div className="row">
           <div className="col-md-3 col-lg-3 col-sm-12">
-            <PropertySorting></PropertySorting>
+            <PropertySorting handleForm={handleForm}></PropertySorting>
           </div>
           <div className="col-md-9 col-lg-9 col-sm-12">
             <div className="ms-4">
