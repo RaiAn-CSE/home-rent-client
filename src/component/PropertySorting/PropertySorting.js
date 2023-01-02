@@ -29,14 +29,14 @@ const PropertySorting = ({ handleForm }) => {
           </Form.Select>
         </Form.Group>
         <h5 className="mt-2">Types of Rent</h5>
-        <Form.Group>
-          <Form.Check label="Flat Rent" />
-          <Form.Check label="Apartment" />
-          <Form.Check label="Commercial Space" />
-          <Form.Check label="Office Space" />
-          <Form.Check label="Restaurant" />
-          <Form.Check label="Community Center" />
-          <Form.Check label="Room for Bachelor" />
+        <Form.Group required >
+          <Form.Check name="rentType" type="checkbox" label="Apartment Building" value="Apartment Building" />
+          <Form.Check name="rentType" type="checkbox" label="Flat Rent" value="Flat Rent" />
+          <Form.Check name="rentType" type="checkbox" label="Commercial Space" vale="Commercial Space" />
+          <Form.Check name="rentType" type="checkbox" label="Office Space" value="Office Space" />
+          <Form.Check name="rentType" type="checkbox" label="Shop & Restaurant" value="Shop & Restaurant" />
+          <Form.Check name="rentType" type="checkbox" label="Community Center" value="Community Center" />
+          <Form.Check name="rentType" type="checkbox" label="Hostel Rent" value="Hostel Rent" />
         </Form.Group>
         <h5 className="mt-2">Select Month</h5>
         <Form.Group>
@@ -71,30 +71,6 @@ const PropertySorting = ({ handleForm }) => {
           <Form.Check label="3" value="3" name="wash" inline />
           <Form.Check label="4" value="4" name="wash" inline />
         </Form.Group>
-        {/* <div className="mt-2">
-          <h5>Price Range</h5>
-          <div className="d-flex justify-content-center">
-            <Form.Group>
-              <Form.Control
-                min="0"
-                step="500"
-                pattern="[0-9]*"
-                placeholder="Min"
-                type="number"
-              />
-            </Form.Group>
-            <p className="mx-2">to</p>
-            <Form.Group>
-              <Form.Control
-                min="0"
-                step="500"
-                pattern="[0-9]*"
-                placeholder="Max"
-                type="number"
-              />
-            </Form.Group>
-          </div>
-        </div> */}
         <div className="my-4 text-center">
           <button className="all-property-btn " type="submit">Find Property</button>
         </div>

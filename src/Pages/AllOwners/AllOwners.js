@@ -48,7 +48,7 @@ const AllOwners = () => {
                 </thead>
                 <tbody>
                     {
-                        allUsers.map((user, i) => <tr
+                        buyers.map((user, i) => <tr
                             key={user._id}>
                             <th>{i + 1}</th>
                             <td>{user.name}</td>

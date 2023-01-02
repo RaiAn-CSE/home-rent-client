@@ -38,21 +38,21 @@ const AddProperty = () => {
           const product = {
             name: data.name,
             address: data.address,
-            rent: data.rent,
+            rent: parseInt(data.rent),
             month: data.month,
             area: data.area,
-            bath: data.bath,
+            bath: parseInt(data.bath),
             category: data.category,
             city: data.city,
             details: data.details,
             elevator: data.elevator,
-            email: data.email,
-            garage: data.garage,
+            email: user.email,
+            garage: parseInt(data.garage),
             gas: data.gas,
-            kitchen: data.kitchen,
+            kitchen: parseInt(data.kitchen),
             phone: data.phone,
-            propertySize: data.propertySize,
-            room: data.room,
+            propertySize: parseInt(data.propertySize),
+            room: parseInt(data.room),
             title: data.title,
             image: imgData.data.url,
           };
@@ -114,10 +114,8 @@ const AddProperty = () => {
                 <Form>
                   <Form.Label>Email*</Form.Label>
                   <Form.Control
-                    {...register("email", {
-                      required: "Email is Required",
-                    })}
                     type="email"
+                    defaultValue={user?.email} disabled
                   />
                 </Form>
               </div>

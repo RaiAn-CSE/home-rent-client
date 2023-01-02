@@ -50,6 +50,7 @@ const AllProperty = () => {
 
     // rent type 
     const rentType = event.target.rentType;
+    console.log(rentType);
     const rentCheck = Object.values(rentType).filter(rent => rent.checked === true);
     const rentCheckValue = rentCheck.map(check => {
       return check.value
