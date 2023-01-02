@@ -12,32 +12,39 @@ const Posts = ({ posts, loading }) => {
     <div className="card-content">
       {posts.map((post) => (
         <div className="card">
-          <div className="card-image">
+          <div className="card-image text-center">
             <img src={post.image} className="card-img-top" alt="..." />
           </div>
           <div className="card-info">
-            <p className="fw-bold">{post.name}</p>
+            <p className="fw-bold">{post.title}</p>
 
             <span>
-              <ImLocation2 />
-              {post.location}
+              <ImLocation2 className="property-des-style" />
+              {post.area}, {post.city}
             </span>
             <p> Property Type: {post.category}</p>
             <div className="d-flex justify-content-start gap-4">
               <span>
-                <FaBed /> {post.room}
+                <FaBed className="property-des-style" /> {post.room}
               </span>
               <span>
-                <FaBath /> {post.bath}
+                <FaBath className="property-des-style" /> {post.bath}
               </span>
               <span>
-                <FaSquare /> {post.length} sqft.
+                <FaSquare className="property-des-style" /> {post.propertySize}{" "}
+                sqft.
               </span>
             </div>
             <div className="mt-2">
-              <p>
-                Rent: <span>{post.rent}</span> TK
-              </p>
+              <span>
+                Available From:{" "}
+                <b className="property-des-style">{post.month}</b>
+              </span>
+            </div>
+            <div className="mt-2">
+              <span>
+                Rent: <span className="property-des-style">{post.rent}</span> TK
+              </span>
             </div>
             <div className="text-center mt-2">
               <Link to="/details" className="details">
