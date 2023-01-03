@@ -19,7 +19,7 @@ const MyProperty = () => {
                     headers: {}
                 });
                 const data = await res.json();
-                console.log(data);
+                // console.log(data);
                 return data;
             }
             catch (error) { }
@@ -43,7 +43,7 @@ const MyProperty = () => {
                         setBuyers(remaining)
                         console.log(remaining);
                     }
-                    console.log(data)
+                    // console.log(data);
                 })
         }
     }
@@ -92,7 +92,8 @@ const MyProperty = () => {
                             </span>
                         </div>
                         <div className="text-center mt-2">
-                            <button className="btn btn-outline btn-warning btn-xs mr-3 mb-5" onClick={() => handleDelete(products._id)}>Delete</button>
+                            <button className="btn btn-outline btn-warning btn-xs mr-3 mb-5" onClick={() => handleDelete(post._id)}>Delete</button>
+                            {/* <h2>id:{post._id}</h2> */}
                         </div>
                     </div>
                 </div>

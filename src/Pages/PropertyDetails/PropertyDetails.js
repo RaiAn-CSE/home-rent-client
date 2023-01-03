@@ -2,12 +2,17 @@ import React from "react";
 import { MdLocationOn } from "react-icons/md";
 
 import "./PropertyDetails.css";
-import detail_image1 from "../../images/banner1.jpg";
 import PropertyDescription from "../../component/PropertyDescription/PropertyDescription";
 import PropertyAddress from "../../component/PropertyAddress/PropertyAddress";
 import PropertyFeatures from "../../component/PropertyFeatures/PropertyFeatures";
+import { useLoaderData } from "react-router-dom";
 
 const PropertyDetails = () => {
+
+  const propertyData = useLoaderData();
+  console.log(propertyData);
+  const { address, area, bath, category, city, details, elevator, email, garage, gas, image, kitchen, month, name, phone, propertySize, rent, room, title, _id } = propertyData;
+
   return (
     <div>
       <section className="banner-section container my-5">
@@ -47,7 +52,7 @@ const PropertyDetails = () => {
               <div className="carousel-inner">
                 <div className="carousel-item active">
                   <img
-                    src={detail_image1}
+                    src={image}
                     className="d-block w-100 banner-image-resize"
                     alt="..."
                   />
@@ -55,14 +60,14 @@ const PropertyDetails = () => {
 
                 <div className="carousel-item">
                   <img
-                    src={detail_image1}
+                    src={image}
                     className="d-block w-100 banner-image-resize"
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item">
                   <img
-                    src={detail_image1}
+                    src={image}
                     className="d-block w-100 banner-image-resize"
                     alt="..."
                   />

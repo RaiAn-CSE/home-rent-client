@@ -23,14 +23,18 @@ const AddProperty = () => {
   const handleAddProduct = (data) => {
     console.log(data);
     const image = data.image[0];
-    console.log(image);
+    // const image1 = data.image1[0];
+    // console.log(image, image1);
     const formData = new FormData();
+    // const formData1 = new FormData();
     formData.append("image", image);
+    // formData1.append("image1", image1);
     const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
     // console.log(url);
     fetch(url, {
       method: "POST",
       body: formData,
+      // body: formData1,
     })
       .then((res) => res.json())
       .then((imgData) => {
@@ -57,6 +61,7 @@ const AddProperty = () => {
             room: parseInt(data.room),
             title: data.title,
             image: imgData.data.url,
+            // image1: imgData.data.url,
           };
 
           // Save Products information to the database
@@ -92,10 +97,11 @@ const AddProperty = () => {
                     <Form.Label>Name*</Form.Label>
                     <Form.Control
                       {...register("name", {
-                        required: "Name is Required",
+                        required: "Name is Required"
                       })}
                       type="text"
                     />
+                    {errors.name && <p className='text-danger'>{errors.name.message}</p>}
                   </Form.Group>
                 </Form>
               </div>
@@ -391,12 +397,22 @@ const AddProperty = () => {
               <Form.Label>Upload Property Image</Form.Label>
               <Form.Control
                 {...register("image", {
-                  required: "Email is Required",
+                  // required: "Email is Required",
                 })}
                 type="file"
                 size="lg"
               />
             </Form.Group>
+            {/* <Form.Group controlId="formFileLg" className="mb-2">
+              <Form.Label>Upload Property Image</Form.Label>
+              <Form.Control
+                {...register("image1", {
+                  // required: "Email is Required",
+                })}
+                type="file"
+                size="lg"
+              />
+            </Form.Group> */}
           </div>
         </div>
         <input className="login-btn mb-5" value="Submit" type="submit" />

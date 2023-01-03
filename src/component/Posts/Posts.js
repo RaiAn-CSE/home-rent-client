@@ -5,6 +5,10 @@ import { ImLocation2 } from "react-icons/im";
 import { Link } from "react-router-dom";
 
 const Posts = ({ posts, loading }) => {
+
+  const { _id } = posts;
+  console.log(posts);
+
   if (loading) {
     return <h2>Loading...</h2>;
   }
@@ -47,7 +51,7 @@ const Posts = ({ posts, loading }) => {
               </span>
             </div>
             <div className="text-center mt-2">
-              <Link to="/details" className="details">
+              <Link to={`/details/${post._id}`} className="details">
                 View Details
               </Link>
             </div>

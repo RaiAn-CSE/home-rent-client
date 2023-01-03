@@ -36,6 +36,7 @@ const Dashboard = () => {
             isSeller &&
             <>
               <li><Link to="/dashboard/myProperty">My Property</Link></li>
+              <li><Link to="/addProperty">My Property</Link></li>
             </>
           }
         </div>

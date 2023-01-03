@@ -8,11 +8,13 @@ import useTitle from "../../hooks/useTitle";
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [signUpError, setSignUPError] = useState('');
   const { createUser, updateUser } = useContext(AuthContext)
   const navigate = useNavigate();
   useTitle('SignUp');
 
   const handleSignUp = (data) => {
+    // setSignUPError('');
     console.log(data);
     createUser(data.email, data.password, data.userType)
       .then(result => {
@@ -23,6 +25,7 @@ const Signup = () => {
         }
         updateUser(userInfo)
           .then(() => {
+            navigate('/');
             saveUser(data.name, data.email, data.userType);
           })
           .catch(err => console.log(err));
@@ -30,8 +33,8 @@ const Signup = () => {
 
       .catch(error => {
         console.log(error)
+        setSignUPError(error.message)
       });
-    navigate('/');
   }
 
   const saveUser = (name, email, userType) => {
@@ -98,12 +101,13 @@ const Signup = () => {
                     Email address
                   </label>
                   <input
-                    {...register("email", { required: true })}
+                    {...register("email", { required: "Email Address is required" })}
                     type="email"
                     className="form-control"
                     id="exampleFormControlInput2"
                     placeholder="name@example.com"
                   />
+                  {errors.email && <p className='text-danger'>{errors.email?.message}</p>}
                   <label
                     for="exampleFormControlInput3"
                     className="form-label float-start"
@@ -124,12 +128,16 @@ const Signup = () => {
                     Password
                   </label>
                   <input
-                    {...register("password", { required: true })}
+                    {...register("password", {
+                      required: "Password is required",
+                      minLength: { value: 6, message: 'Password must be 6 characters or longer' }
+                    })}
                     type="password"
                     className="form-control"
                     placeholder="Password"
                     id="password"
                   />
+                  {errors.password && <p className='text-danger'>{errors.password?.message}</p>}
                   <input
                     type="password"
                     className="form-control mt-3"
@@ -143,6 +151,7 @@ const Signup = () => {
                   />
                   Show Password
                 </div>
+                {signUpError && <p className='text-danger'>{signUpError}</p>}
                 <input className="signIn-btn mb-5 login-btn" value='Sign Up' type="submit" />
               </form>
             </div>

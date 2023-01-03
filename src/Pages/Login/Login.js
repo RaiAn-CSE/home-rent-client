@@ -103,12 +103,17 @@ const Login = () => {
                     Password
                   </label>
                   <input
-                    {...register("password", { required: true })}
+                    {...register("password", {
+                      required: "Password is required",
+                      minLength: { value: 6, message: 'Password must be 6 characters or longer' }
+                    }
+                    )}
                     type="password"
                     className="form-control"
                     placeholder="Enter password"
                     id="inputPassword"
                   />
+                  {errors.password && <p className='text-danger'>{errors.password?.message}</p>}
                   <input
                     type="checkbox"
                     className=" m-3"
