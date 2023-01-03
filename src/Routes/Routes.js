@@ -10,6 +10,7 @@ import AllRenters from "../Pages/AllRenters/AllRenters";
 // import AllRenters from "../Pages/AllRenters/AllRenters";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Home from "../Pages/Home/Home";
+import HomeSortProperty from "../Pages/HomeSortProperty/HomeSortProperty";
 import Login from "../Pages/Login/Login";
 import MyProperty from "../Pages/MyProperty/MyProperty";
 import PropertyDetails from "../Pages/PropertyDetails/PropertyDetails";
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/signUp",
         element: <Signup></Signup>,
+      },
+      {
+        path: "/homeSortProperty",
+        element: <HomeSortProperty></HomeSortProperty>,
       },
       {
         path: "/details/:id",

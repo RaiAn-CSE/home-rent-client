@@ -11,7 +11,6 @@ const Hero = () => {
     const city = event.target.city.value;
     const area = event.target.area.value;
     const rent = event.target.rent.value;
-    console.log(city, area, rent);
     navigate('/AllProperty', { state: { data: { city: city, area: area, rent: rent } } })
   }
 

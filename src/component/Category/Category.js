@@ -6,15 +6,13 @@ const Category = ({ categ, setTotalAdd, totalAdd }) => {
   const [add, setAdd] = useState()
   const navigate = useNavigate()
   const handleCategory = () => {
-    console.log("hit", title);
-    navigate("/AllProperty", { state: { data: { title, page: "home" } } })
+    navigate("/homeSortProperty", { state: { data: { title } } })
   }
 
   useEffect(() => {
     fetch(`http://localhost:5000/categoryWiseData?title=${title}`)
       .then(res => res.json())
       .then(data => {
-        console.log("category", data);
         setAdd(data.length)
         setTotalAdd(totalAdd + data.length)
       })
@@ -22,7 +20,6 @@ const Category = ({ categ, setTotalAdd, totalAdd }) => {
 
   }, [])
 
-  console.log(icon);
   return (
     <div className="category-item">
       <button className="bg-white" onClick={handleCategory}>

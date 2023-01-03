@@ -15,38 +15,16 @@ const AllProperty = () => {
   const [postsPerPage] = useState(9);
 
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      setLoading(true);
-      const res = await axios.get("http://localhost:5000/productCollection");
-      setPosts(res.data);
-      setLoading(false);
-    };
 
-    fetchPosts();
-  }, []);
 
   const location = useLocation()
   const homeSearch = location?.state?.data;
   console.log("location.state.data", homeSearch);
-  useEffect(() => {
-    if (homeSearch?.page === 'home') {
-      fetch(`http://localhost:5000/categoryWiseData?title=${homeSearch?.title}`)
-        .then(res => res.json())
-        .then(data => setPosts(data))
-    } else if (homeSearch?.city) {
-      fetch(`http://localhost:5000/sortProducts?city=${homeSearch?.city}&area=${homeSearch?.area}&rent=${homeSearch?.rent}`)
-        .then(res => res.json())
-        .then(data => setPosts(data))
 
-    } else {
-      fetch('http://localhost:5000/productCollection')
-        .then(res => res.json())
-        .then(data => setPosts(data))
-    }
-  }, [homeSearch])
+
   // const { data } = location?.state;
   // setPosts(posts)
+  console.log("new data", posts);
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
@@ -56,6 +34,7 @@ const AllProperty = () => {
   //change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  console.log("posts", posts);
 
   //handle form
   const handleForm = (event) => {
@@ -116,6 +95,25 @@ const AllProperty = () => {
       .then(res => res.json())
       .then(data => setPosts(data))
   }
+  useEffect(() => {
+    if (homeSearch?.city) {
+      console.log("Asche");
+      fetch(`http://localhost:5000/sortProducts?city=${homeSearch?.city}&area=${homeSearch?.area}&rent=${homeSearch?.rent}`)
+        .then(res => res.json())
+        .then(data => setPosts(data))
+    } else {
+
+      const fetchPosts = async () => {
+        setLoading(true);
+        const res = await axios.get("http://localhost:5000/productCollection");
+        setPosts(res.data);
+        setLoading(false);
+      };
+
+      fetchPosts();
+
+    }
+  }, [homeSearch?.city, homeSearch?.area, homeSearch?.rent])
   return (
     <div>
       <div className="banner-section">

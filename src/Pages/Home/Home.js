@@ -20,7 +20,7 @@ const Home = () => {
       .then(res => res.json())
       .then(data => setAdd(data))
   }, [])
-  console.log("data", add);
+
   return (
     <div>
       <Banner></Banner>
@@ -29,7 +29,7 @@ const Home = () => {
         <div className="container">
           <div className="category-title">
             <p>Top Categories</p>
-            <span>{category.length} categories {totalAdd} ads</span>
+            <span>{category.length} categories {add.length} ads</span>
           </div>
           <div className="category">
             {category.map((categ) => (
