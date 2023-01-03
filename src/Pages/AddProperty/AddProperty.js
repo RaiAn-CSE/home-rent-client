@@ -22,23 +22,25 @@ const AddProperty = () => {
 
   const handleAddProduct = (data) => {
     console.log(data);
+
     const image = data.image[0];
-    // const image1 = data.image1[0];
-    // console.log(image, image1);
+    const image1 = data.image1[0];
+    const image2 = data.image2[0];
+    // console.log(image, image1, image2);
     const formData = new FormData();
-    // const formData1 = new FormData();
     formData.append("image", image);
-    // formData1.append("image1", image1);
+    formData.append("image1", image1);
+    formData.append("image2", image2);
+    console.log(formData);
     const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
     // console.log(url);
     fetch(url, {
       method: "POST",
       body: formData,
-      // body: formData1,
     })
       .then((res) => res.json())
       .then((imgData) => {
-        // console.log(imgData);
+        console.log("imagedata :", imgData);
         if (imgData.success) {
           console.log(imgData.data.url);
           const product = {
@@ -61,7 +63,8 @@ const AddProperty = () => {
             room: parseInt(data.room),
             title: data.title,
             image: imgData.data.url,
-            // image1: imgData.data.url,
+            image1: imgData.data.url,
+            image2: imgData.data.url,
           };
 
           // Save Products information to the database
@@ -394,7 +397,7 @@ const AddProperty = () => {
               </div>
             </div>
             <Form.Group controlId="formFileLg" className="mb-2">
-              <Form.Label>Upload Property Image</Form.Label>
+              <Form.Label>Upload Property Image 1</Form.Label>
               <Form.Control
                 {...register("image", {
                   // required: "Email is Required",
@@ -403,8 +406,8 @@ const AddProperty = () => {
                 size="lg"
               />
             </Form.Group>
-            {/* <Form.Group controlId="formFileLg" className="mb-2">
-              <Form.Label>Upload Property Image</Form.Label>
+            <Form.Group controlId="formFileLg" className="mb-2">
+              <Form.Label>Upload Property Image 2</Form.Label>
               <Form.Control
                 {...register("image1", {
                   // required: "Email is Required",
@@ -412,7 +415,17 @@ const AddProperty = () => {
                 type="file"
                 size="lg"
               />
-            </Form.Group> */}
+            </Form.Group>
+            <Form.Group controlId="formFileLg" className="mb-2">
+              <Form.Label>Upload Property Image 3</Form.Label>
+              <Form.Control
+                {...register("image2", {
+                  // required: "Email is Required",
+                })}
+                type="file"
+                size="lg"
+              />
+            </Form.Group>
           </div>
         </div>
         <input className="login-btn mb-5" value="Submit" type="submit" />

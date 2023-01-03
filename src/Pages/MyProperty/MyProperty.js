@@ -8,7 +8,6 @@ import Loading from '../../Shared/Loading/Loading';
 
 const MyProperty = () => {
     const { user } = useContext(AuthContext)
-    const [buyers, setBuyers] = useState([])
     useTitle('My Property');
 
     const { data: products = [], isLoading, refetch } = useQuery({
@@ -38,12 +37,8 @@ const MyProperty = () => {
                 .then(data => {
                     if (data.deletedCount > 0) {
                         // toast.success('Make admin successful.')
-
-                        const remaining = buyers.filter(dlt => dlt._id !== id)
-                        setBuyers(remaining)
-                        console.log(remaining);
+                        refetch();
                     }
-                    // console.log(data);
                 })
         }
     }

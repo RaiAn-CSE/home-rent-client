@@ -1,8 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import "./Hero.css";
+
 const Hero = () => {
+
+  const navigate = useNavigate();
+  const handleSearch = event => {
+    event.preventDefault();
+    const city = event.target.city.value;
+    const area = event.target.area.value;
+    const rent = event.target.rent.value;
+    console.log(city, area, rent);
+    navigate('/AllProperty', { state: { data: { city: city, area: area, rent: rent } } })
+  }
+
+
   return (
     <div className="container d-flex justify-content-center">
       <div className="hero-title">
@@ -13,33 +26,31 @@ const Hero = () => {
         <div className="search-property">
           <div className="form">
             <div className="row">
-              <div className="col-md-4 col-sm-12 col-lg-4 search-category">
-                <Form>
-                  <Form.Group>
-                    <Form.Label className="float-start filter-label">
-                      City
-                    </Form.Label>
-                    <Form.Select aria-label="Default select example">
-                      <option value="">Choose City</option>
-                      <option value="Dhaka">Dhaka</option>
-                      <option value="Chittagong">Chittagong</option>
-                      <option value="Rajshahi">Rajshahi</option>
-                      <option value="Rangpur">Rangpur</option>
-                      <option value="Barisal">Barisal</option>
-                      <option value="Khulna">Khulna</option>
-                      <option value="Sylhet">Sylhet</option>
-                      <option value="Mymensingh">Mymensingh</option>
-                    </Form.Select>
-                  </Form.Group>
-                </Form>
-              </div>
-              <div className="col-md-2 col-6 col-lg-2 search-category">
-                <Form>
+              <Form onSubmit={handleSearch} className="d-flex justify-content-between align-items-center">
+                <Form.Group>
+                  <Form.Label className="float-start filter-label">
+                    City
+                  </Form.Label>
+                  <Form.Select aria-label="Default select example" name="city" required>
+                    <option value="">Choose City</option>
+                    <option value="Dhaka">Dhaka</option>
+                    <option value="Chittagong">Chittagong</option>
+                    <option value="Rajshahi">Rajshahi</option>
+                    <option value="Rangpur">Rangpur</option>
+                    <option value="Barisal">Barisal</option>
+                    <option value="Khulna">Khulna</option>
+                    <option value="Sylhet">Sylhet</option>
+                    <option value="Mymensingh">Mymensingh</option>
+                  </Form.Select>
+                </Form.Group>
+
+                <div className="col-md-2 col-6 col-lg-2 search-category">
+
                   <Form.Group>
                     <Form.Label className="float-start filter-label">
                       Area
                     </Form.Label>
-                    <Form.Select aria-label="Default select example">
+                    <Form.Select aria-label="Default select example" name="area" required>
                       <option value="">Choose Area</option>
                       <option value="Dhanmondi">Dhanmondi</option>
                       <option value="Mohammadpur">Mohammadpur</option>
@@ -51,15 +62,15 @@ const Hero = () => {
                       <option value="Farmgate">Farmgate</option>
                     </Form.Select>
                   </Form.Group>
-                </Form>
-              </div>
-              <div className="col-md-2 col-6 col-lg-2 search-category">
-                <Form>
+
+                </div>
+                <div className="col-md-2 col-6 col-lg-2 search-category">
+
                   <Form.Group>
                     <Form.Label className="float-start filter-label">
                       Category
                     </Form.Label>
-                    <Form.Select aria-label="Default select example">
+                    <Form.Select aria-label="Default select example" name="rent" required>
                       <option value="">Choose</option>
                       <option value="Commercial Space">Commercial Space</option>
                       <option value="Office Space">Office Space</option>
@@ -77,13 +88,17 @@ const Hero = () => {
                       </option>
                     </Form.Select>
                   </Form.Group>
-                </Form>
-              </div>
-              <div className="col-md-4 col-lg-4 col-sm-12 mt-md-4 mt-lg-4 mt-sm-3 ">
-                <Link className="browse-property" to="/allProperty">
-                  Browse Properties
-                </Link>
-              </div>
+
+
+
+
+                </div>
+                <div>
+                  <button type="submit" className="browse-property">
+                    Browse Properties
+                  </button>
+                </div>
+              </Form>
             </div>
           </div>
         </div>

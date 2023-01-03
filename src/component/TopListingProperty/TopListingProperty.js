@@ -100,7 +100,7 @@ const TopListingProperty = () => {
                   </span>
                 </div>
                 <div className="text-center mt-2">
-                  <Link to="/details" className="details">
+                  <Link to={`/details/${pro._id}`} className="details">
                     View Details
                   </Link>
                 </div>

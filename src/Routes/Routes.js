@@ -14,6 +14,7 @@ import Login from "../Pages/Login/Login";
 import MyProperty from "../Pages/MyProperty/MyProperty";
 import PropertyDetails from "../Pages/PropertyDetails/PropertyDetails";
 import Signup from "../Pages/Signup/Signup";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 // import AdminRoute from "./AdminRoute/AdminRoute";
 
 const router = createBrowserRouter([
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/addProperty",
-        element: <AddProperty></AddProperty>,
+        element: <PrivateRoute><AddProperty></AddProperty></PrivateRoute>,
       },
       {
         path: "/aboutUs",
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/details/:id",
-        element: <PropertyDetails></PropertyDetails>,
+        element: <PrivateRoute><PropertyDetails /></PrivateRoute>,
         loader: ({ params }) => fetch(`http://localhost:5000/details/${params.id}`)
       }
     ],

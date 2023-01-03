@@ -4,15 +4,15 @@ import PropertyBanner from "../../component/PropertyBanner/PropertyBanner";
 import PropertySorting from "../../component/PropertySorting/PropertySorting";
 import Posts from "../../component/Posts/Posts";
 import Pagination from "../../component/Pagination/Pagination";
-import useTitle from "../../hooks/useTitle";
+import { useLocation } from "react-router-dom";
 
 const AllProperty = () => {
   const [posts, setPosts] = useState([]);
-  console.log(posts);
+
+
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(9);
-  useTitle('All Property')
 
 
   useEffect(() => {
@@ -26,7 +26,27 @@ const AllProperty = () => {
     fetchPosts();
   }, []);
 
+  const location = useLocation()
+  const homeSearch = location?.state?.data;
+  console.log("location.state.data", homeSearch);
+  useEffect(() => {
+    if (homeSearch?.page === 'home') {
+      fetch(`http://localhost:5000/categoryWiseData?title=${homeSearch?.title}`)
+        .then(res => res.json())
+        .then(data => setPosts(data))
+    } else if (homeSearch?.city) {
+      fetch(`http://localhost:5000/sortProducts?city=${homeSearch?.city}&area=${homeSearch?.area}&rent=${homeSearch?.rent}`)
+        .then(res => res.json())
+        .then(data => setPosts(data))
 
+    } else {
+      fetch('http://localhost:5000/productCollection')
+        .then(res => res.json())
+        .then(data => setPosts(data))
+    }
+  }, [homeSearch])
+  // const { data } = location?.state;
+  // setPosts(posts)
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
@@ -52,7 +72,6 @@ const AllProperty = () => {
 
     // rent type 
     const rentType = event.target.rentType;
-    console.log(rentType);
     const rentCheck = Object.values(rentType).filter(rent => rent.checked === true);
     const rentCheckValue = rentCheck.map(check => {
       return check.value
@@ -85,10 +104,22 @@ const AllProperty = () => {
 
 
   }
+
+  const handleSearch = event => {
+    event.preventDefault();
+    const city = event.target.city.value;
+    const area = event.target.area.value;
+    const rent = event.target.rent.value;
+    console.log(city, area, rent);
+
+    fetch(`http://localhost:5000/sortProducts?city=${city}&area=${area}&rent=${rent}`)
+      .then(res => res.json())
+      .then(data => setPosts(data))
+  }
   return (
     <div>
       <div className="banner-section">
-        <PropertyBanner></PropertyBanner>
+        <PropertyBanner handleSearch={handleSearch}></PropertyBanner>
       </div>
       <div className="container">
         <h3 className="mt-5 fw-bolder">Search results:-</h3>

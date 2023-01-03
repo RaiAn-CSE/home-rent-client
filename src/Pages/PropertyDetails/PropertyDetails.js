@@ -11,7 +11,9 @@ const PropertyDetails = () => {
 
   const propertyData = useLoaderData();
   console.log(propertyData);
-  const { address, area, bath, category, city, details, elevator, email, garage, gas, image, kitchen, month, name, phone, propertySize, rent, room, title, _id } = propertyData;
+  const { address, area, bath, category, city, details, elevator, email, garage, gas, image, image1, image2, kitchen, month, name, phone, propertySize, rent, room, title, _id } = propertyData;
+
+  console.log(image, image1, image2);
 
   return (
     <div>
@@ -60,14 +62,14 @@ const PropertyDetails = () => {
 
                 <div className="carousel-item">
                   <img
-                    src={image}
+                    src={image1}
                     className="d-block w-100 banner-image-resize"
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item">
                   <img
-                    src={image}
+                    src={image2}
                     className="d-block w-100 banner-image-resize"
                     alt="..."
                   />

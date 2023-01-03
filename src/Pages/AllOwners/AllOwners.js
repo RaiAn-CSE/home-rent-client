@@ -1,20 +1,27 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import useTitle from '../../hooks/useTitle';
+import Loading from '../../Shared/Loading/Loading';
 
 const AllOwners = () => {
 
-    const [allUsers, setAllUsers] = useState([]);
-    const [buyers, setBuyers] = useState([])
     useTitle('All Owners');
 
-    console.log(allUsers);
-
-    useEffect(() => {
-        fetch('http://localhost:5000/dashboard/allsellers?role=seller')
-            .then((res) => res.json())
-            .then((data) => setAllUsers(data));
-    }, []);
+    // console.log(allUsers);
+    const { data: allUsers = [], isLoading, refetch } = useQuery({
+        queryKey: ['products'],
+        queryFn: async () => {
+            try {
+                const res = await fetch('http://localhost:5000/dashboard/allsellers?role=seller', {
+                    headers: {}
+                });
+                const data = await res.json();
+                return data;
+            }
+            catch (error) { }
+        }
+    });
 
     const handleDelete = id => {
         console.log(id);
@@ -28,15 +35,18 @@ const AllOwners = () => {
                 .then(data => {
                     if (data.deletedCount > 0) {
                         // toast.success('Make admin successful.')
-
-                        const remaining = buyers.filter(dlt => dlt._id !== id)
-                        setBuyers(remaining)
-                        console.log(remaining);
+                        refetch();
                     }
                     console.log(data)
                 })
         }
     }
+
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
 
     return (
         <div>

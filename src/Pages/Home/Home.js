@@ -4,17 +4,23 @@ import Hero from "../../component/Hero/Hero";
 import Category from "../../component/Category/Category";
 import "./Home.css";
 import TopListingProperty from "../../component/TopListingProperty/TopListingProperty";
-import useTitle from "../../hooks/useTitle";
 
 const Home = () => {
   const [category, setCategory] = useState([]);
-
-  useTitle('Home')
+  const [add, setAdd] = useState([])
+  const [totalAdd, setTotalAdd] = useState(0)
   useEffect(() => {
     fetch("category.json")
       .then((res) => res.json())
       .then((data) => setCategory(data));
   }, []);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/allProducts`)
+      .then(res => res.json())
+      .then(data => setAdd(data))
+  }, [])
+  console.log("data", add);
   return (
     <div>
       <Banner></Banner>
@@ -23,7 +29,7 @@ const Home = () => {
         <div className="container">
           <div className="category-title">
             <p>Top Categories</p>
-            <span>{category.length} categories 20 ads</span>
+            <span>{category.length} categories {totalAdd} ads</span>
           </div>
           <div className="category">
             {category.map((categ) => (
@@ -33,13 +39,15 @@ const Home = () => {
                 // title={categ.title}
                 // adds={categ.adds}
                 categ={categ}
+                setTotalAdd={setTotalAdd}
+                totalAdd={totalAdd}
               ></Category>
             ))}
           </div>
         </div>
-      </section>
+      </section >
       <TopListingProperty></TopListingProperty>
-    </div>
+    </div >
   );
 };
 
