@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
+import useTitle from '../../hooks/useTitle';
 
 const AllRenters = () => {
 
     const [allUsers, setAllUsers] = useState([]);
     const [sellers, setSellers] = useState([])
+    useTitle('All Renters');
 
     console.log(allUsers);
 

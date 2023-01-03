@@ -4,9 +4,12 @@ import Hero from "../../component/Hero/Hero";
 import Category from "../../component/Category/Category";
 import "./Home.css";
 import TopListingProperty from "../../component/TopListingProperty/TopListingProperty";
+import useTitle from "../../hooks/useTitle";
 
 const Home = () => {
   const [category, setCategory] = useState([]);
+
+  useTitle('Home')
   useEffect(() => {
     fetch("category.json")
       .then((res) => res.json())

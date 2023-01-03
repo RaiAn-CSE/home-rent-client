@@ -1,16 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
-import { Button } from 'react-bootstrap';
 import { FaBath, FaBed, FaSquare } from 'react-icons/fa';
 import { ImLocation2 } from 'react-icons/im';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 import Loading from '../../Shared/Loading/Loading';
 
 const MyProperty = () => {
     const { user } = useContext(AuthContext)
-    const [reProducts, setReProducts] = useState([])
-
-    // console.log(user.email);
+    const [buyers, setBuyers] = useState([])
+    useTitle('My Property');
 
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['products'],
@@ -27,16 +26,12 @@ const MyProperty = () => {
         }
     });
 
-    console.log(products);
-
-
-
-    const handleDeleteProduct = post => {
-        console.log(post);
-        const agree = window.confirm(`Are you sure you want to delete :${post} `)
+    const handleDelete = id => {
+        console.log(id);
+        const agree = window.confirm(`Are you sure you want to delete :${id} `)
         if (agree) {
-            console.log("Deleting user with id:", post)
-            fetch(`http://localhost:5000/products/${post._id}`, {
+            console.log("Deleting user with id:", id)
+            fetch(`http://localhost:5000/products/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -44,8 +39,9 @@ const MyProperty = () => {
                     if (data.deletedCount > 0) {
                         // toast.success('Make admin successful.')
 
-                        const remaining = reProducts.filter(dlt => dlt._id !== post)
-                        setReProducts(remaining)
+                        const remaining = buyers.filter(dlt => dlt._id !== id)
+                        setBuyers(remaining)
+                        console.log(remaining);
                     }
                     console.log(data)
                 })
@@ -96,7 +92,7 @@ const MyProperty = () => {
                             </span>
                         </div>
                         <div className="text-center mt-2">
-                            <Button onClick={() => handleDeleteProduct(post)} variant="danger">Delete</Button>{' '}
+                            <button className="btn btn-outline btn-warning btn-xs mr-3 mb-5" onClick={() => handleDelete(products._id)}>Delete</button>
                         </div>
                     </div>
                 </div>

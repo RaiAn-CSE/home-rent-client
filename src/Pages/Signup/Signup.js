@@ -4,11 +4,13 @@ import loginBanner from "../../images/login-banner.png";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
+import useTitle from "../../hooks/useTitle";
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { createUser, updateUser } = useContext(AuthContext)
   const navigate = useNavigate();
+  useTitle('SignUp');
 
   const handleSignUp = (data) => {
     console.log(data);

@@ -4,6 +4,7 @@ import PropertyBanner from "../../component/PropertyBanner/PropertyBanner";
 import PropertySorting from "../../component/PropertySorting/PropertySorting";
 import Posts from "../../component/Posts/Posts";
 import Pagination from "../../component/Pagination/Pagination";
+import useTitle from "../../hooks/useTitle";
 
 const AllProperty = () => {
   const [posts, setPosts] = useState([]);
@@ -11,6 +12,7 @@ const AllProperty = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(9);
+  useTitle('All Property')
 
 
   useEffect(() => {

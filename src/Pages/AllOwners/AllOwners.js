@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
+import useTitle from '../../hooks/useTitle';
 
 const AllOwners = () => {
 
     const [allUsers, setAllUsers] = useState([]);
     const [buyers, setBuyers] = useState([])
+    useTitle('All Owners');
 
     console.log(allUsers);
 
@@ -29,6 +31,7 @@ const AllOwners = () => {
 
                         const remaining = buyers.filter(dlt => dlt._id !== id)
                         setBuyers(remaining)
+                        console.log(remaining);
                     }
                     console.log(data)
                 })
@@ -48,7 +51,7 @@ const AllOwners = () => {
                 </thead>
                 <tbody>
                     {
-                        buyers.map((user, i) => <tr
+                        allUsers.map((user, i) => <tr
                             key={user._id}>
                             <th>{i + 1}</th>
                             <td>{user.name}</td>

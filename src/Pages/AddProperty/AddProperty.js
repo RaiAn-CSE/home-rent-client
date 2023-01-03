@@ -4,9 +4,11 @@ import Form from "react-bootstrap/Form";
 import { AuthContext } from "../../contexts/AuthProvider";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
 
 const AddProperty = () => {
   const { user } = useContext(AuthContext);
+  useTitle('Add Property')
   const {
     register,
     handleSubmit,

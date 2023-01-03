@@ -5,12 +5,14 @@ import NavSection from "../../Shared/Navbar/NavSection";
 import useAdmin from "../../hooks/useAdmin";
 import { AuthContext } from "../../contexts/AuthProvider";
 import useSeller from "../../hooks/useSeller";
+import useTitle from "../../hooks/useTitle";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin] = useAdmin(user?.email)
   const [isSeller] = useSeller(user?.email)
   const [myProperty, setMyProperty] = useState([]);
+  useTitle('Dashboard');
   useEffect(() => {
     fetch("dashboard-data.json")
       .then((res) => res.json())
